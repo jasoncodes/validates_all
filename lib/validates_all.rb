@@ -6,7 +6,7 @@ module DanHodos #:nodoc:
         #
         #   class Person < ActiveRecord::Base
         #     validates_all :security_answer_1, :security_answer_2 do |record, attrs, values|
-        #       message = '#{attrs.to_sentence(:connector => 'or')} must be set'
+        #       message = '#{attrs.to_sentence(:two_words_connector => ' or ', :last_word_connector => ', or ')} must be set'
         #       record.errors.add_to_base(message) if attrs.all?(&:blank?)
         #     end
         #   end
@@ -37,7 +37,7 @@ module DanHodos #:nodoc:
         def validates_presence_of_one_of(*attrs)
           overrides = attrs.pop if attrs.last.is_a?(Hash)
           configuration = {
-            :message => "#{attrs.map {|attr| attr.to_s.humanize }.to_sentence(:connector => 'or')} must be specified", 
+            :message => "#{attrs.map {|attr| attr.to_s.humanize }.to_sentence(:two_words_connector => ' or ', :last_word_connector => ', or ')} must be specified", 
             :on => :save }
           configuration.update(overrides) if overrides
           
