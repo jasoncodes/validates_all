@@ -1,3 +1,7 @@
+require 'rubygems'
+require 'bundler'
+Bundler.setup
+
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
