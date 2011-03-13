@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), 'test_helper')
+require 'test_helper'
 
 class Account < ActiveRecord::Base
   validates_presence_of_either :email_address, :login_name, :if => Proc.new {|user| user.full_name != 'dan'}
