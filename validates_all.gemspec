@@ -5,5 +5,5 @@ spec = Gem::Specification.new do |s|
   s.description = %{Extends the built-in ActiveRecord Validations to add a "validates_all" method which is similar to "validates_each".}
   s.files = Dir['lib/**/*.rb'] + Dir['test/**/*.rb']
   s.require_path = 'lib'
-  s.add_runtime_dependency 'activerecord', %w(~>2.3.0)
+  s.add_runtime_dependency 'activerecord', %w(~>3.0)
 end
