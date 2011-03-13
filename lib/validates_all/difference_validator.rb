@@ -1,5 +1,4 @@
 module ValidatesAll
-
   class DifferenceValidator < AllValidator
     def initialize(options)
       attrs = options[:attributes] || []
@@ -15,20 +14,4 @@ module ValidatesAll
       end
     end
   end
-
-  module HelperMethods
-    # Validates that each of the specified attributes have a different value.
-    #
-    #   class Person < ActiveRecord::Base
-    #     validates_different :best_friend_id, :second_best_friend_id
-    #   end
-    #
-    # # Configuration options are the same as validates_all, plus:
-    # * <tt>suppress_on_blanks</tt> - Prevents any error from being triggered if all attributes are blank.
-    def validates_different(*attr_names)
-      validates_with DifferenceValidator, _merge_attributes(attr_names)
-    end
-  end
-  ActiveModel::Validations::HelperMethods.send :include, HelperMethods
-
 end
