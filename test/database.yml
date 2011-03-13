@@ -1,6 +1,6 @@
 sqlite3:
   :adapter: sqlite3
-  :dbfile: validates_all_test.sqlite3db
+  :database: validates_all_test.sqlite3db
 postgresql:
   :adapter: postgres
   :username: postgres
