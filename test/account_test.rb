@@ -5,7 +5,7 @@ class Account < ActiveRecord::Base
   validates_different :primary_account_holder_id, :secondary_account_holder_id, :suppress_on_blanks => true
 end
 
-class AccountTest < Test::Unit::TestCase
+class AccountTest < ActiveSupport::TestCase
   def setup
     @account = Account.new
   end
@@ -18,19 +18,19 @@ class AccountTest < Test::Unit::TestCase
   def test_should_not_require_email_address_or_login_name_if_if_condition_evaluates_to_true
     @account.full_name = 'dan'
     @account.valid?
-    @account.errors.on_base.blank?
+    assert_blank @account.errors.on_base
   end
   
   def test_should_not_have_error_on_base_if_email_address_is_specified
     @account.email_address = 'dan@danhodos.com'
     @account.valid?
-    @account.errors.on_base.blank?
+    assert_blank @account.errors.on_base
   end
   
   def test_should_not_have_error_on_base_if_login_name_is_specified
     @account.login_name = 'danhodos'
     @account.valid?
-    @account.errors.on_base.blank?
+    assert_blank @account.errors.on_base
   end
   
   def test_should_have_error_on_base_if_account_holder_ids_are_the_same_and_not_blank
