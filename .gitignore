@@ -1,2 +1,3 @@
 test/debug.log
+validates_all_test.sqlite3db
 Gemfile.lock
