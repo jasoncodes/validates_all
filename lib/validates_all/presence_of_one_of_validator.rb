@@ -1,12 +1,19 @@
 module ValidatesAll
   class PresenceOfOneOfValidator < AllValidator
-    def initialize(options)
-      options.reverse_merge! :message => "#{options[:attributes].map {|attr| attr.to_s.humanize }.to_sentence(:two_words_connector => ' or ', :last_word_connector => ', or ')} must be specified"
-      super
-    end
-
     def validate_all(record, attributes, values)
-      record.errors.add :base, options[:message] if values.all?(&:blank?)
+      return unless values.all?(&:blank?)
+
+      message = options[:message] || begin
+        attribute_names = options[:attributes].map do |key|
+          record.class.human_attribute_name key
+        end
+        attribute_names.to_sentence(
+          :two_words_connector => ' or ',
+          :last_word_connector => ', or '
+        ) + ' must be specified'
+      end
+
+      record.errors.add :base, message
     end
   end
 end
