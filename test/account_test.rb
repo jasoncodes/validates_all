@@ -12,25 +12,25 @@ class AccountTest < ActiveSupport::TestCase
   
   def test_should_require_email_address_or_login_name_by_default
     @account.valid?
-    assert_match(/Email address or Login name must be specified/i, @account.errors.on_base)
+    assert_match(/Email address or Login name must be specified/i, @account.errors[:base].join)
   end
   
   def test_should_not_require_email_address_or_login_name_if_if_condition_evaluates_to_true
     @account.full_name = 'dan'
     @account.valid?
-    assert_blank @account.errors.on_base
+    assert_blank @account.errors[:base]
   end
   
   def test_should_not_have_error_on_base_if_email_address_is_specified
     @account.email_address = 'dan@danhodos.com'
     @account.valid?
-    assert_blank @account.errors.on_base
+    assert_blank @account.errors[:base]
   end
   
   def test_should_not_have_error_on_base_if_login_name_is_specified
     @account.login_name = 'danhodos'
     @account.valid?
-    assert_blank @account.errors.on_base
+    assert_blank @account.errors[:base]
   end
   
   def test_should_have_error_on_base_if_account_holder_ids_are_the_same_and_not_blank
@@ -38,7 +38,7 @@ class AccountTest < ActiveSupport::TestCase
     @account.secondary_account_holder_id = 1
     @account.valid?
     
-    assert_match(/Primary account holder cannot be the same as Secondary account holder/i, @account.errors.on_base.join)
+    assert_match(/Primary account holder cannot be the same as Secondary account holder/i, @account.errors[:base].join)
   end
   
   def test_should_not_have_error_on_base_if_account_holder_ids_are_different
@@ -46,11 +46,11 @@ class AccountTest < ActiveSupport::TestCase
     @account.secondary_account_holder_id = 2
     @account.valid?
     
-    assert_no_match(/Primary account holder cannot be the same as Secondary account holder/i, @account.errors.on_base)
+    assert_no_match(/Primary account holder cannot be the same as Secondary account holder/i, @account.errors[:base].join)
   end
   
   def test_should_not_have_error_on_base_if_account_holder_ids_are_both_blank
     @account.valid?
-    assert_no_match(/Primary account holder cannot be the same as Secondary account holder/i, @account.errors.on_base)
+    assert_no_match(/Primary account holder cannot be the same as Secondary account holder/i, @account.errors[:base].join)
   end
 end
